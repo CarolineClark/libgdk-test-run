@@ -12,12 +12,15 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Circle;
 
 public class MyGdxGame implements ApplicationListener, InputProcessor {
 	private SpriteBatch batch;
 	private BitmapFont font;
 	private int w,h;
 	private GlyphLayout layout;
+    private ShapeRenderer shapeRenderer;
 
 	class TouchInfo {
 		public float touchX = 0;
@@ -29,9 +32,14 @@ public class MyGdxGame implements ApplicationListener, InputProcessor {
 
 	@Override
 	public void create() {
+        shapeRenderer = new ShapeRenderer();
+        shapeRenderer.setAutoShapeType(true);
+        shapeRenderer.setColor(Color.BLACK);
+
 		batch = new SpriteBatch();
 		font = new BitmapFont();
 		font.setColor(Color.BLACK);
+
 		layout = new GlyphLayout();
 		w = Gdx.graphics.getWidth();
 		h = Gdx.graphics.getHeight();
@@ -51,18 +59,28 @@ public class MyGdxGame implements ApplicationListener, InputProcessor {
 	public void render() {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
+        shapeRenderer.begin();
 
 		String message = "";
-		for(int i = 0; i < 5; i++){
-			if(touches.get(i).touched)
-				message += "Finger:" + Integer.toString(i) + "touch at:" +
-						Float.toString(touches.get(i).touchX) +
-						"," +
-						Float.toString(touches.get(i).touchY) +
-						"\n";
+        float touchX;
+        float touchY;
+        for (int i = 0; i < 5; i++) {
+			if (touches.get(i).touched) {
+                touchX = touches.get(i).touchX;
+                touchY = touches.get(i).touchY;
+                shapeRenderer.circle(touchX, touchY, 10);
+
+                message += "Finger:" + Integer.toString(i) + "touch at:" +
+                        Float.toString(touchX) +
+                        "," +
+                        Float.toString(touchY) +
+                        "\n";
+            }
 
 		}
+        shapeRenderer.end();
+
+        batch.begin();
 		layout = new GlyphLayout();
 		layout.setText(font, message);
 		float x = w/2 - layout.width/2;
