@@ -1,0 +1,17 @@
+.idea
+.DS_Store
+*.iml
+
+*.class
+*.war
+*.ear
+hs_err_pid*
+
+android/libs/*
+android/gen/
+*.ipr
+*.iws
+out/
+
+.gradle
+build
