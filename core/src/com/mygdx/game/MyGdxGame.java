@@ -59,7 +59,7 @@ public class MyGdxGame implements ApplicationListener, InputProcessor {
 	public void render() {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        shapeRenderer.begin();
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 
 		String message = "";
         float touchX;
@@ -68,7 +68,7 @@ public class MyGdxGame implements ApplicationListener, InputProcessor {
 			if (touches.get(i).touched) {
                 touchX = touches.get(i).touchX;
                 touchY = touches.get(i).touchY;
-                shapeRenderer.circle(touchX, touchY, 10);
+                shapeRenderer.circle(touchX, h - touchY, 80);
 
                 message += "Finger:" + Integer.toString(i) + "touch at:" +
                         Float.toString(touchX) +
