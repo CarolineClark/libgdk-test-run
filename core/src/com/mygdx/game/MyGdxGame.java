@@ -13,7 +13,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Circle;
+
 
 public class MyGdxGame implements ApplicationListener, InputProcessor {
 	private SpriteBatch batch;
@@ -142,8 +142,11 @@ public class MyGdxGame implements ApplicationListener, InputProcessor {
 
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		// TODO Auto-generated method stub
-		return false;
+        if(pointer < 5){
+            touches.get(pointer).touchX = screenX;
+            touches.get(pointer).touchY = screenY;
+        }
+		return true;
 	}
 
 	@Override
