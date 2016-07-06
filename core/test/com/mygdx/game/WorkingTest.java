@@ -1,0 +1,14 @@
+package com.mygdx.game;
+
+import org.junit.Test;
+
+import static org.junit.Assert.assertTrue;
+
+public class WorkingTest {
+
+    @Test
+    public void alwaysPasses() {
+        assertTrue(true);
+    }
+
+}
