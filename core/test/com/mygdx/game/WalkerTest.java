@@ -34,32 +34,40 @@ public class WalkerTest {
         assertEquals(0, walker.y, 0.01);
     }
 
-    // TODO Specify a series of point for the walker to start from.
     @Test
-    public void walkerWalksDownWhenInstructedToDoSo() {
+    @Parameters({"17, 17",
+                 "22, 22",
+                 "-100, -10",
+                 "-20, 30",
+                 "40, -80"})
+    public void walkerWalksDownWhenInstructedToDoSo(int sourceX, int sourceY) {
         // Given
-        walker.setCoordinates(80, 50);
+        walker.setCoordinates(sourceX, sourceY);
 
         //When
         walker.stepDown();
 
         //Then
-        assertEquals(80, walker.x, 0.01);
-        assertEquals(50 - Walker.STEP_SIZE, walker.y, 0.01);
+        assertEquals(sourceX, walker.x, 0.01);
+        assertEquals(sourceY - Walker.STEP_SIZE, walker.y, 0.01);
     }
 
     @Test
-    //@Parameters({"17, false", "22, true" })
-    public void walkerWalksLeftWhenInstructedToDoSo() {
+    @Parameters({"17, 17",
+                "22, 22",
+                "-100, -10",
+                "-20, 30",
+                "40, -80"})
+    public void walkerWalksLeftWhenInstructedToDoSo(int sourceX, int sourceY) {
         // Given
-        walker.setCoordinates(80, 50);
+        walker.setCoordinates(sourceX, sourceY);
 
         //When
         walker.stepLeft();
 
         //Then
-        assertEquals(80 - Walker.STEP_SIZE, walker.x, 0.01);
-        assertEquals(50, walker.y, 0.01);
+        assertEquals(sourceX - Walker.STEP_SIZE, walker.x, 0.01);
+        assertEquals(sourceY, walker.y, 0.01);
     }
 
     @Test
