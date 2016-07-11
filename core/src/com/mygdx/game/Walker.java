@@ -21,6 +21,14 @@ public class Walker {
         step(90);
     }
 
+    public void stepDown() {
+        step(180);
+    }
+
+    public void stepLeft() {
+        step(270);
+    }
+
     public void step(double angle) {
         double doubleX = STEP_SIZE * Math.sin(Math.toRadians(angle));
         x = x + (float)doubleX;
@@ -31,9 +39,13 @@ public class Walker {
     public void stepTowards(float destX, float destY) {
         float differenceX = destX - x;
         float differenceY = destY - y;
-        if (differenceX * differenceX + differenceY * differenceY > STEP_SIZE * STEP_SIZE) {
+        if (distanceGreaterThanStepSize(differenceX, differenceY)) {
             double theta = Math.toDegrees(Math.atan(differenceX/differenceY));
             step(theta);
         }
+    }
+
+    public boolean distanceGreaterThanStepSize(float differenceX, float differenceY) {
+        return differenceX * differenceX + differenceY * differenceY > STEP_SIZE * STEP_SIZE;
     }
 }

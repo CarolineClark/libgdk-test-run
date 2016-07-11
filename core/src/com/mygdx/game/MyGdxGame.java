@@ -75,6 +75,7 @@ public class MyGdxGame implements ApplicationListener, InputProcessor {
 			if (touches.get(i).touched) {
                 touchX = touches.get(i).touchX;
                 touchY = touches.get(i).touchY;
+				// TODO why is this "h - " needed?
                 shapeRenderer.circle(touchX, h - touchY, 80);
 
                 message += "Finger:" + Integer.toString(i) + "touch at:" +
@@ -89,10 +90,10 @@ public class MyGdxGame implements ApplicationListener, InputProcessor {
 
 		walkerRenderer.begin(ShapeRenderer.ShapeType.Filled);
 		// get last touches
-		if (touchX != 0.0f && touchY != 0.0f){
+		if (touchX != 0.0f && touchY != 0.0f) {
 			walker.stepTowards(touchX, touchY);
 		}
-		walkerRenderer.circle(walker.x, walker.y, 80);
+		walkerRenderer.circle(walker.x, h - walker.y, 80);
 		walkerRenderer.end();
 
 //      batch.begin();
