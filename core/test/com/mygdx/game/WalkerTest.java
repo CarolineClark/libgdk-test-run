@@ -54,6 +54,24 @@ public class WalkerTest {
 
     @Test
     @Parameters({"17, 17",
+            "22, 22",
+            "-100, -10",
+            "-20, 30",
+            "40, -80"})
+    public void walkerWalksUpWhenInstructedToDoSo(int sourceX, int sourceY) {
+        // Given
+        walker.setCoordinates(sourceX, sourceY);
+
+        //When
+        walker.stepUp();
+
+        //Then
+        assertEquals(sourceX, walker.x, 0.01);
+        assertEquals(sourceY + Walker.STEP_SIZE, walker.y, 0.01);
+    }
+
+    @Test
+    @Parameters({"17, 17",
                 "22, 22",
                 "-100, -10",
                 "-20, 30",

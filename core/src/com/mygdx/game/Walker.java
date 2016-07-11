@@ -17,6 +17,10 @@ public class Walker {
         y = newY;
     }
 
+    public void stepUp() {
+        step(0);
+    }
+
     public void stepRight() {
         step(90);
     }

@@ -68,7 +68,6 @@ public class MyGdxGame implements ApplicationListener, InputProcessor {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 
-		String message = "";
         float touchX = 0.0f;
         float touchY = 0.0f;
         for (int i = 0; i < 5; i++) {
@@ -77,12 +76,6 @@ public class MyGdxGame implements ApplicationListener, InputProcessor {
                 touchY = touches.get(i).touchY;
 				// TODO why is this "h - " needed?
                 shapeRenderer.circle(touchX, h - touchY, 80);
-
-                message += "Finger:" + Integer.toString(i) + "touch at:" +
-                        Float.toString(touchX) +
-                        "," +
-                        Float.toString(touchY) +
-                        "\n";
             }
 
 		}
@@ -91,9 +84,9 @@ public class MyGdxGame implements ApplicationListener, InputProcessor {
 		walkerRenderer.begin(ShapeRenderer.ShapeType.Filled);
 		// get last touches
 		if (touchX != 0.0f && touchY != 0.0f) {
-			walker.stepTowards(touchX, touchY);
+			walker.stepTowards(touchX, h - touchY);
 		}
-		walkerRenderer.circle(walker.x, h - walker.y, 80);
+		walkerRenderer.circle(walker.x, walker.y, 80);
 		walkerRenderer.end();
 
 //      batch.begin();
