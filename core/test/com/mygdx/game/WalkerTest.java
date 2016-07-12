@@ -22,19 +22,6 @@ public class WalkerTest {
     }
 
     @Test
-    public void onInitialisation_startAtOrigin() {
-        assertEquals(0, walker.x, 0.01);
-        assertEquals(0, walker.y, 0.01);
-    }
-
-    @Test
-    public void coordinatesAfterSteppingRight_givesCorrectCoordinates() {
-        walker.stepRight();
-        assertEquals(Walker.STEP_SIZE, walker.x, 0.01);
-        assertEquals(0, walker.y, 0.01);
-    }
-
-    @Test
     @Parameters({"17, 17",
                  "22, 22",
                  "-100, -10",
@@ -50,24 +37,6 @@ public class WalkerTest {
         //Then
         assertEquals(sourceX, walker.x, 0.01);
         assertEquals(sourceY - Walker.STEP_SIZE, walker.y, 0.01);
-    }
-
-    @Test
-    @Parameters({"17, 17",
-            "22, 22",
-            "-100, -10",
-            "-20, 30",
-            "40, -80"})
-    public void walkerWalksUpWhenInstructedToDoSo(int sourceX, int sourceY) {
-        // Given
-        walker.setCoordinates(sourceX, sourceY);
-
-        //When
-        walker.stepUp();
-
-        //Then
-        assertEquals(sourceX, walker.x, 0.01);
-        assertEquals(sourceY + Walker.STEP_SIZE, walker.y, 0.01);
     }
 
     @Test
@@ -106,53 +75,10 @@ public class WalkerTest {
     }
 
     @Test
-    public void notStartingAtOrigin_afterSpecifyingPointWithEqualXAndYToWalkTo_walkerMovesFromOriginTowardsPoint() {
-        //Given
-        walker.setCoordinates(80, 80);
-
-        // When
-        walker.stepTowards(200, 200);
-
-        // Then
-        assertEquals(walker.x, walker.y, 0.01);
-    }
-
-    @Test
-    public void afterSpecifyingPointWithXGreaterThanYToWalkTo_walkerMovesFromOriginTowardsPoint() {
-        //Given
-        walker.setCoordinates(0, 0);
-
-        walker.stepTowards(300, 200);
-        assertThat(walker.x, Matchers.greaterThan(walker.y));
-    }
-
-    @Test
-    public void afterSpecifyingPointWithYGreaterThanXToWalkTo_walkerMovesFromOriginTowardsPoint() {
-        // Given
-        walker.setCoordinates(0, 0);
-
-        walker.stepTowards(200, 300);
-        assertThat(walker.x, Matchers.lessThan(walker.y));
-    }
-
-    @Test
-    public void afterSpecifyingPointWithNegativeXPositiveYToWalkTo_walkerMovesFromOriginTowardsPoint() {
-        // Given
-        walker.setCoordinates(0, 0);
-
-        // When
-        walker.stepTowards(-300, 200);
-
-        // Then
-        assertThat(walker.x, Matchers.lessThan(0.0f));
-        assertThat(walker.y, Matchers.greaterThan(0.0f));
-    }
-
-    @Test
     @Parameters({"300, 200",
                  "50, 200",
                  "20, 15"})
-    public void afterSpecifyingDestInUpperQuadrant_walkerMovesToDest(int destX, int destY) {
+    public void afterSpecifyingDestinationInUpperQuadrant_walkerMovesToDestination(int destX, int destY) {
         // Given
         walker.setCoordinates(0, 0);
 
@@ -181,7 +107,7 @@ public class WalkerTest {
     @Parameters({"10, 400",
                  "50, 500",
                  "-20, 310"})
-    public void afterSpecifyingDestAboveLeftOfWalker_walkerMovesToDest(int destX, int destY) {
+    public void afterSpecifyingDestinationAboveLeftOfWalker_walkerMovesToDestination(int destX, int destY) {
         // Given
         walker.setCoordinates(200, 300);
 
@@ -197,7 +123,7 @@ public class WalkerTest {
     @Parameters({"350, 200",
                 "400, 100",
                 "450, 0"})
-    public void afterSpecifyingDestBelowRightOfWalker_walkerMovesToDest(int destX, int destY) {
+    public void afterSpecifyingDestinationBelowRightOfWalker_walkerMovesToDestination(int destX, int destY) {
         // Given
         walker.setCoordinates(300, 250);
 
@@ -206,6 +132,22 @@ public class WalkerTest {
 
         // Then
         assertThat(walker.x, Matchers.greaterThan(300.0f));
+        assertThat(walker.y, Matchers.lessThan(250.0f));
+    }
+
+    @Test
+    @Parameters({"150, 100",
+                "50, 200",
+                "230, 240"})
+    public void afterSpecifyingDestinationBelowLeftOfWalker_walkerMovesToDestination(int destX, int destY) {
+        // Given
+        walker.setCoordinates(300, 250);
+
+        // When
+        walker.stepTowards(destX, destY);
+
+        // Then
+        assertThat(walker.x, Matchers.lessThan(300.0f));
         assertThat(walker.y, Matchers.lessThan(250.0f));
     }
 
