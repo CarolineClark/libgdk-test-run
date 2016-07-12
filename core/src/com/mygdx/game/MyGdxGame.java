@@ -21,6 +21,8 @@ public class MyGdxGame implements ApplicationListener, InputProcessor {
 	private int w,h;
 	private GlyphLayout layout;
     private ShapeRenderer shapeRenderer;
+	private ShapeRenderer walkerRenderer;
+	private Walker walker;
 
 	class TouchInfo {
 		public float touchX = 0;
@@ -35,6 +37,11 @@ public class MyGdxGame implements ApplicationListener, InputProcessor {
         shapeRenderer = new ShapeRenderer();
         shapeRenderer.setAutoShapeType(true);
         shapeRenderer.setColor(Color.BLACK);
+		walkerRenderer = new ShapeRenderer();
+		walkerRenderer.setAutoShapeType(true);
+		walkerRenderer.setColor(Color.RED);
+		walker = new Walker();
+		walker.setCoordinates(80, 80);
 
 		batch = new SpriteBatch();
 		font = new BitmapFont();
@@ -61,33 +68,35 @@ public class MyGdxGame implements ApplicationListener, InputProcessor {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 
-		String message = "";
-        float touchX;
-        float touchY;
+        float touchX = 0.0f;
+        float touchY = 0.0f;
         for (int i = 0; i < 5; i++) {
 			if (touches.get(i).touched) {
                 touchX = touches.get(i).touchX;
                 touchY = touches.get(i).touchY;
+				// TODO why is this "h - " needed?
                 shapeRenderer.circle(touchX, h - touchY, 80);
-
-                message += "Finger:" + Integer.toString(i) + "touch at:" +
-                        Float.toString(touchX) +
-                        "," +
-                        Float.toString(touchY) +
-                        "\n";
             }
 
 		}
         shapeRenderer.end();
 
-        batch.begin();
-		layout = new GlyphLayout();
-		layout.setText(font, message);
-		float x = w/2 - layout.width/2;
-		float y = h/2 + layout.height/2;
-		font.draw(batch, message, x, y);
+		walkerRenderer.begin(ShapeRenderer.ShapeType.Filled);
+		// get last touches
+		if (touchX != 0.0f && touchY != 0.0f) {
+			walker.stepTowards(touchX, h - touchY);
+		}
+		walkerRenderer.circle(walker.x, walker.y, 80);
+		walkerRenderer.end();
 
-		batch.end();
+//      batch.begin();
+//		layout = new GlyphLayout();
+//		layout.setText(font, message);
+//		float x = w/2 - layout.width/2;
+//		float y = h/2 + layout.height/2;
+//		font.draw(batch, message, x, y);
+
+//		batch.end();
 	}
 
 	@Override
