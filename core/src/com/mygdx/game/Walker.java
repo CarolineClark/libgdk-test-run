@@ -43,10 +43,22 @@ public class Walker {
     public void stepTowards(float destX, float destY) {
         float differenceX = destX - x;
         float differenceY = destY - y;
+
         if (distanceGreaterThanStepSize(differenceX, differenceY)) {
-            double theta = Math.toDegrees(Math.atan(differenceX/differenceY));
-            step(theta);
+            float ratio = differenceY / differenceX;
+            float stepY = (float)Math.sqrt(STEP_SIZE*STEP_SIZE / (1 + ratio*ratio));
+            float stepX = Math.abs(stepY/ratio);
+
+            int signX = getSignOfNumber(differenceX);
+            int signY = getSignOfNumber(differenceY);
+
+            x = x + signX * stepX;
+            y = y + signY * stepY;
         }
+    }
+
+    private int getSignOfNumber(float number) {
+        return (int)(number / Math.abs(number));
     }
 
     public boolean distanceGreaterThanStepSize(float differenceX, float differenceY) {
