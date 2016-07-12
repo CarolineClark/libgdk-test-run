@@ -177,4 +177,36 @@ public class WalkerTest {
         assertEquals(200, walker.y, 0.01);
     }
 
+    @Test
+    @Parameters({"10, 400",
+                 "50, 500",
+                 "-20, 310"})
+    public void afterSpecifyingDestAboveLeftOfWalker_walkerMovesToDest(int destX, int destY) {
+        // Given
+        walker.setCoordinates(200, 300);
+
+        // When
+        walker.stepTowards(destX, destY);
+
+        // Then
+        assertThat(walker.x, Matchers.lessThan(200.0f));
+        assertThat(walker.y, Matchers.greaterThan(300.0f));
+    }
+
+    @Test
+    @Parameters({"350, 200",
+                "400, 100",
+                "450, 0"})
+    public void afterSpecifyingDestBelowRightOfWalker_walkerMovesToDest(int destX, int destY) {
+        // Given
+        walker.setCoordinates(300, 250);
+
+        // When
+        walker.stepTowards(destX, destY);
+
+        // Then
+        assertThat(walker.x, Matchers.greaterThan(300.0f));
+        assertThat(walker.y, Matchers.lessThan(250.0f));
+    }
+
 }
