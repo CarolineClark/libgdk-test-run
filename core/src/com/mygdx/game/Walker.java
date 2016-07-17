@@ -46,18 +46,18 @@ public class Walker {
 
         if (distanceGreaterThanStepSize(differenceX, differenceY)) {
             float ratio = differenceY / differenceX;
-            float stepY = (float)Math.sqrt(STEP_SIZE*STEP_SIZE / (1 + ratio*ratio));
-            float stepX = Math.abs(stepY/ratio);
+            float stepX = (float)Math.sqrt(STEP_SIZE*STEP_SIZE / (1 + ratio*ratio));
+            float stepY = Math.abs(stepX * ratio);
 
-            if (stepX > Math.abs(differenceX)) {
+            if (Double.isNaN(stepX) || stepX > Math.abs(differenceX)) {
                 // y is too small
                 int signX = getSignOfNumber(differenceX);
                 x = x + signX * STEP_SIZE;
             }
-            else if (stepY > Math.abs(differenceY)) {
+            else if (Double.isNaN(stepY) || stepY > Math.abs(differenceY)) {
                 // x is too small
                 int signY = getSignOfNumber(differenceY);
-                x = x + signY * STEP_SIZE;
+                y = y + signY * STEP_SIZE;
             }
             else {
                 int signX = getSignOfNumber(differenceX);
