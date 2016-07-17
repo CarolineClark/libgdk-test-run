@@ -49,11 +49,23 @@ public class Walker {
             float stepY = (float)Math.sqrt(STEP_SIZE*STEP_SIZE / (1 + ratio*ratio));
             float stepX = Math.abs(stepY/ratio);
 
-            int signX = getSignOfNumber(differenceX);
-            int signY = getSignOfNumber(differenceY);
+            if (stepX > Math.abs(differenceX)) {
+                // y is too small
+                int signX = getSignOfNumber(differenceX);
+                x = x + signX * STEP_SIZE;
+            }
+            else if (stepY > Math.abs(differenceY)) {
+                // x is too small
+                int signY = getSignOfNumber(differenceY);
+                x = x + signY * STEP_SIZE;
+            }
+            else {
+                int signX = getSignOfNumber(differenceX);
+                int signY = getSignOfNumber(differenceY);
 
-            x = x + signX * stepX;
-            y = y + signY * stepY;
+                x = x + signX * stepX;
+                y = y + signY * stepY;
+            }
         }
     }
 

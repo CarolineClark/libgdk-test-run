@@ -151,4 +151,100 @@ public class WalkerTest {
         assertThat(walker.y, Matchers.lessThan(250.0f));
     }
 
+    @Test
+    @Parameters({"100",
+                 "200",
+                 "240"})
+    public void afterSpecifyingDestinationExactlyLeftOfWalker_walkerMovesToDestination(int destX) {
+        // Given
+        walker.setCoordinates(300, 250);
+
+        // When
+        walker.stepTowards(destX, 250);
+        assertThat(walker.x, Matchers.lessThan(300.0f));
+        assertThat(walker.x, Matchers.greaterThan((float)destX));
+        assertEquals(walker.y, 250, 0.01);
+
+        walker.stepTowards(destX, 250);
+        assertThat(walker.x, Matchers.lessThan(300.0f));
+        assertThat(walker.x, Matchers.greaterThan((float)destX));
+        assertEquals(walker.y, 250, 0.01);
+
+        walker.stepTowards(destX, 250);
+        assertThat(walker.x, Matchers.lessThan(300.0f));
+        assertThat(walker.x, Matchers.greaterThan((float)destX));
+        assertEquals(walker.y, 250, 0.01);
+    }
+
+    @Test
+    @Parameters({"150",
+                 "200",
+                 "240"})
+    public void afterSpecifyingDestinationExactlyRightOfWalker_walkerMovesToDestination(int destX) {
+        // Given
+        walker.setCoordinates(100, 250);
+
+        // When
+        walker.stepTowards(destX, 250);
+        assertThat(walker.x, Matchers.greaterThan(100.0f));
+        assertThat(walker.x, Matchers.lessThan((float)destX));
+        assertEquals(walker.y, 250, 0.01);
+
+        walker.stepTowards(destX, 250);
+        assertThat(walker.x, Matchers.greaterThan(100.0f));
+        assertThat(walker.x, Matchers.lessThan((float)destX));
+        assertEquals(walker.y, 250, 0.01);
+
+        walker.stepTowards(destX, 250);
+        assertThat(walker.x, Matchers.greaterThan(100.0f));
+        assertThat(walker.x, Matchers.lessThan((float)destX));
+        assertEquals(walker.y, 250, 0.01);
+    }
+
+    @Test
+    @Parameters({"150",
+                 "200",
+                 "240"})
+    public void afterSpecifyingDestinationExactlyBelowOfWalker_walkerMovesToDestination(int destY) {
+        // Given
+        walker.setCoordinates(90, 100);
+
+        // When
+        walker.stepTowards(90, destY);
+        assertThat(walker.y, Matchers.greaterThan(100.0f));
+        assertThat(walker.y, Matchers.lessThan((float)destY));
+
+        walker.stepTowards(90, destY);
+        assertThat(walker.y, Matchers.greaterThan(100.0f));
+        assertThat(walker.y, Matchers.lessThan((float)destY));
+
+        walker.stepTowards(90, destY);
+        assertThat(walker.y, Matchers.greaterThan(100.0f));
+        assertThat(walker.y, Matchers.lessThan((float)destY));
+    }
+
+    @Test
+    @Parameters({"100",
+            "200",
+            "240"})
+    public void afterSpecifyingDestinationNearlyLeftOfWalker_walkerMovesToDestination(int destX) {
+        // Given
+        walker.setCoordinates(300, 250);
+
+        // When
+        walker.stepTowards(destX, 250.001f);
+        assertThat(walker.x, Matchers.lessThan(300.0f));
+        assertThat(walker.x, Matchers.greaterThan((float)destX));
+        assertEquals(walker.y, 250, 0.01);
+
+        walker.stepTowards(destX, 250.001f);
+        assertThat(walker.x, Matchers.lessThan(300.0f));
+        assertThat(walker.x, Matchers.greaterThan((float)destX));
+        assertEquals(walker.y, 250, 0.01);
+
+        walker.stepTowards(destX, 250.001f);
+        assertThat(walker.x, Matchers.lessThan(300.0f));
+        assertThat(walker.x, Matchers.greaterThan((float)destX));
+        assertEquals(walker.y, 250, 0.01);
+    }
 }
