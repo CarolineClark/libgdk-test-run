@@ -19,8 +19,7 @@ public class MyGdxGame implements ApplicationListener, InputProcessor {
 	private SpriteBatch batch;
 	private BitmapFont font;
 	private int w,h;
-	private GlyphLayout layout;
-    private ShapeRenderer shapeRenderer;
+	private ShapeRenderer shapeRenderer;
 	private ShapeRenderer walkerRenderer;
 	private Walker walker;
 
@@ -47,7 +46,6 @@ public class MyGdxGame implements ApplicationListener, InputProcessor {
 		font = new BitmapFont();
 		font.setColor(Color.BLACK);
 
-		layout = new GlyphLayout();
 		w = Gdx.graphics.getWidth();
 		h = Gdx.graphics.getHeight();
 		Gdx.input.setInputProcessor(this);
@@ -74,7 +72,6 @@ public class MyGdxGame implements ApplicationListener, InputProcessor {
 			if (touches.get(i).touched) {
                 touchX = touches.get(i).touchX;
                 touchY = touches.get(i).touchY;
-				// TODO why is this "h - " needed?
                 shapeRenderer.circle(touchX, h - touchY, 80);
             }
 
@@ -88,15 +85,6 @@ public class MyGdxGame implements ApplicationListener, InputProcessor {
 		}
 		walkerRenderer.circle(walker.x, walker.y, 80);
 		walkerRenderer.end();
-
-//      batch.begin();
-//		layout = new GlyphLayout();
-//		layout.setText(font, message);
-//		float x = w/2 - layout.width/2;
-//		float y = h/2 + layout.height/2;
-//		font.draw(batch, message, x, y);
-
-//		batch.end();
 	}
 
 	@Override
